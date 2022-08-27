@@ -1,0 +1,75 @@
+sudo vi /etc/ansible/host
+
+[lamp]
+webserver01 ansible_host=ip address
+dbserver02 ansible_host=ip address
+:wq!
+==============
+
+Vi lamp.yaml
+---
+- hosts: webserver1
+  become: yes
+  name: paly1
+  tasks:
+  - name: INSTALL Apache 
+    apt: name={{ item }} state=latest
+    with_items:
+          - apache2
+          - mysql-client
+
+  - name: START services
+    service: name={{ item }} state=started
+    with_items:
+           - apache2
+           - mysql
+
+  - name: copy html file
+    copy: src=index.php dest=/var/www/html/index.php mode=0664
+
+ - name: START services2
+    service: name=apache2 state=restarted enabled=yes
+
+- hosts: dbserver1
+  become: yes
+  name: paly2
+  tasks:
+  - name: INSTALL Apache Mysql PHP
+    apt: name={{ item }} state=latest
+    with_items:
+          - apache2
+          - mysql-server
+          - mysql-client
+          - php
+          - php-mysql
+          - php-gd
+          - php-cli
+          - php-common
+          - wget
+          - unzip
+          - phpmyadmin
+
+  - name: Create DB user apkadmin
+    mysql_user: user=apkadmin password=8V2@apk priv=*.*:ALL state=present
+
+ - name: Create DATABASE
+    mysql_db: db=mydb state=present
+
+  - name: START services1
+    service: name={{ item }} state=started
+    with_items:
+           - apache2
+           - mysql
+
+  - name: ADDING in file
+    ansible.builtin.lineinfile:
+        path: /etc/apache2/apache2.conf
+        line: Include /etc/phpmyadmin/apache.conf
+
+  - name: START services2
+    service: name=apache2 state=restarted enabled=yes
+    :wq!
+    
+    # ansible-playbook lamp.yaml
+
+------------------------------------------------------------------------------------------------------------------------
