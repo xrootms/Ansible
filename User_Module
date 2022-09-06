@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  name: play1
+  tasks:
+  - name: ADDING users
+    user:
+      name: jhon
+      group: root      #Primary group
+      groups: sudo     #Secondary group "like-sudo"#
+      shell: /bin/bash
+      state: present
