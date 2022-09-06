@@ -1,10 +1,12 @@
 ---
-- name: this playbook creates a file or dir
-  hosts: all
-  #  become: true
-  #  gather_facts: no
+- hosts: all
+  become: yes
+  name: play1
   tasks:
-  - name: creating a file
+  - name: create file
     file:
-      path: /home/ansadmin/dir1
-      state: directory 
+      path: /home/ubuntu/file011
+      state: touch
+      mode: 0764
+      owner: ubuntu
+      group: ubuntu
