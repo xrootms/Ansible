@@ -1,0 +1,14 @@
+---
+- name: this playbook creates a file or dir
+  hosts: all
+  #  become: true
+  #  gather_facts: no
+  tasks:
+  - name: creating a file
+    file:
+      path: /home/ansadmin/dir1
+      state: directory 
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Terms
