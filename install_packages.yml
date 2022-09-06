@@ -1,0 +1,16 @@
+---
+- name: Packages Installation
+  hosts: all
+  become: true
+  tasks:
+  - name: install package
+    yum: 
+      name: "{{ item }}"
+      state: installed
+    with_items: 
+      - git
+      - make
+      - gcc
+      - wget
+      - telnet
+      - gzip
