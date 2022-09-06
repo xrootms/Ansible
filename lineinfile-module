@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: yes
+  name: play1
+  tasks:
+  - name: ADDING in file
+    lineinfile:
+      path: /home/ubuntu/f1
+      line: "saiftonic"
