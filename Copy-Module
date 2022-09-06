@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  name: play1
+  tasks:
+  - name: create file
+    copy:
+      src: index.html
+      dest: /home/ubuntu
+      mode: 0755
+      owner: ubuntu
+      group: ubuntu
