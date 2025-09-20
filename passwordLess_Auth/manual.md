@@ -1,4 +1,4 @@
-# 🔑 Ansible Passwordless Authentication Manual
+# Ansible Passwordless Authentication Manual
 
 This guide explains how to set up passwordless SSH authentication for Ansible.  
 Once configured, Ansible can connect to managed nodes without prompting for passwords.
@@ -110,6 +110,7 @@ Example `inventory.ini`:
 
 ---
 
-## 🎯 Done!
+## Done!
 
-You have successfully set up **Passwordless SSH Authentication for Ansible** 🚀
+successfully set up **Passwordless SSH Authentication for Ansible** 🚀
+
