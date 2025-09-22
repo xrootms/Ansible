@@ -1,117 +1,107 @@
-# ?? Ansible Passwordless Authentication Manual
+# Ansible Playbook – Server Bootstrap Setup
 
-This guide explains how to set up passwordless SSH authentication for Ansible.  
-Once configured, Ansible can connect to managed nodes without prompting for passwords.
-
----
-
-## ? Summary
-
-1. Generate SSH key (`ssh-keygen`)  
-2. Copy public key to slaves (`ssh-copy-id`)  
-3. Verify login without password  
-4. (Optional) Disable password login for extra security  
+This Ansible playbook sets up a secure Ubuntu/Debian server with a new user, SSH key-based authentication, sudo privileges, essential packages, and a firewall.
 
 ---
 
-## ?? Steps for Passwordless SSH Authentication
+## Features
 
-### ? 1. Generate an SSH key on the master (control node)
-
-Run this on your **Ansible master machine**:
-
-```bash
-ssh-keygen
-```
-
-- Press **Enter** to accept defaults  
-- Leave the **passphrase empty**  
-
-This creates:
-
-- Private key ? `~/.ssh/id_rsa`  
-- Public key ? `~/.ssh/id_rsa.pub`  
+- Creates a new user with sudo privileges  
+- Configures **passwordless sudo** for the `wheel` group  
+- Adds an **SSH public key** for secure login  
+- Disables **root password login**  
+- Installs required system packages (`curl`, `vim`, `git`, `ufw`, etc.)  
+- Sets up **UFW firewall**:  
+  - Allows SSH  
+  - Denies all other incoming traffic by default  
 
 ---
 
-### ? 2. Copy the public key to the slave (managed node)
+## Prerequisites
 
-Use the `ssh-copy-id` command:
+1. Ansible installed on your control machine  
+   ```bash
+   sudo apt update && sudo apt install ansible -y
+   ```
 
-```bash
-ssh-copy-id user@slave_ip
-```
+2. Target server(s) accessible via SSH  
 
-- Replace **`user`** with the remote username (`root`, `ubuntu`, `ec2-user`, etc.)  
-- Enter the password **one last time**  
-
-This appends your public key into:
-
-```
-~/.ssh/authorized_keys
-```
-
-on the remote machine.
+3. Your SSH key available at:
+   ```bash
+   ~/.ssh/id_rsa.pub
+   ```
 
 ---
 
-### ? 3. Verify passwordless login
-
-Now try:
-
-```bash
-ssh user@slave_ip_address
-```
-
-?? It should log in **without asking for a password**.  
-
----
-
-### ? 4. (Optional) Update SSH server settings
-
-On the **slave machine**, edit:
-
-```bash
-sudo nano /etc/ssh/sshd_config
-```
-
-Update the following values:
+## File Structure
 
 ```
-PasswordAuthentication no
-PermitRootLogin no
-```
-
-Restart SSH:
-
-```bash
-sudo systemctl restart sshd
-```
-
-?? This enforces **key-only login**, more secure than passwords.  
-
----
-
-### ? 5. Use with Ansible
-
-Now Ansible can connect without prompting for passwords:
-
-```bash
-ansible-playbook -i inventory.ini -u user playbook.yml
-```
-
-Example `inventory.ini`:
-
-```ini
-[webservers]
-192.168.1.101
-192.168.1.102
+project/
+│── playbook.yml        # Main Ansible playbook
+│── vars/
+│   └── default.yml     # Variables file
+│── inventory           # (Optional) Ansible inventory
+│── README.md           # Documentation
 ```
 
 ---
 
-## ?? Done!
+## Variables (`vars/default.yml`)
 
-You have successfully set up **Passwordless SSH Authentication for Ansible** ??
+```yaml
+create_user: sammy
+copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+sys_packages: [ 'curl', 'vim', 'git', 'ufw' ]
+```
+
+- **create_user** → Name of the new user to be created  
+- **copy_local_key** → Path to your local SSH public key  
+- **sys_packages** → List of essential packages to install  
+
+---
+
+## Usage
+
+1. Update your `inventory` file with server details:
+   ```ini
+   [all]
+   your_server_ip ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
+   ```
+
+2. Run the playbook:
+   ```bash
+   ansible-playbook -i inventory playbook.yml
+   ```
+
+---
+
+## Verification
+
+After the playbook runs:
+
+- Login as the new user:
+  ```bash
+  ssh sammy@your_server_ip
+  ```
+- Confirm sudo works without a password:
+  ```bash
+  sudo ls /root
+  ```
+- Check UFW firewall rules:
+  ```bash
+  sudo ufw status
+  ```
+
+---
+
+## Notes
+
+- This setup **disables root password login** but allows root login with SSH keys if configured.  
+- Make sure you have your **SSH key added** before running the playbook.  
+- Modify `vars/default.yml` to customize the username or system packages.  
+
+---
+✅ Now your server is ready, secure, and manageable with Ansible.
+
 
 
