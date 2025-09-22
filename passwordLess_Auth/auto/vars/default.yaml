@@ -1,0 +1,15 @@
+---
+create_user: saif
+copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+sys_packages: [ 'curl', 'vim', 'git', 'ufw']
+
+
+
+
+#user named saif will be created on the target server.
+
+#fetching public SSH key from local machine.
+#lookup('env','HOME') - gets the value of your home directory (e.g., /home/ubuntu or /root).
+#+ '/.ssh/id_rsa.pub' - appends the path of your public key file.
+#lookup('file', …) - reads the content of that file.
+#lookup('file', <path>) - The file lookup reads the contents of a file.
