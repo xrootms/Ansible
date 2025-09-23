@@ -47,16 +47,17 @@ project/
 1. Obtain the playbook
    ```bash
   git clone https://github.com/do-community/ansible-playbooks.git
-  
+   ```
+   ```bash
   cd ansible-playbooks/setup_ubuntu1804
    ```
 
-2. Customize Options
+2. # Customize Options
 - Modify `vars/default.yml` to customize the username or system packages.
 
-3. Update your `inventory` file with server details:
+3. # Update your `inventory` file with server details:
 
-4. Run the playbook:
+4. # Run the playbook:
    ```bash
   ansible-playbook -l [target] -i [inventory file] -u [remote user] playbook.yaml
    ```
