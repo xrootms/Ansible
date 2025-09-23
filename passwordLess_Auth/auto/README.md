@@ -1,35 +1,25 @@
-# Ansible Playbook – Server Bootstrap Setup
+# Ansible Playbook – Initial Server Setup
 
-This Ansible playbook sets up a secure Ubuntu/Debian server with a new user, SSH key-based authentication, sudo privileges, essential packages, and a firewall.
+“We’re preparing a new server with the minimum secure configuration before deploying applications on it.”
+This playbook sets up a secure Ubuntu server with a new User, SSH key-based authentication, sudo Privileges, Essential packages, and a Firewall.
 
 ---
 
 ## Features
-
-- Creates a new user with sudo privileges  
-- Configures **passwordless sudo** for the `wheel` group  
-- Adds an **SSH public key** for secure login  
-- Disables **root password login**  
-- Installs required system packages (`curl`, `vim`, `git`, `ufw`, etc.)  
-- Sets up **UFW firewall**:  
-  - Allows SSH  
-  - Denies all other incoming traffic by default  
+Creating a non-root user
+Adding SSH keys for login
+Giving the user sudo privileges
+Installing basic tools (git, curl, vim, ufw, etc.)
+Securing SSH (disable root password login)
+Enabling a firewall
 
 ---
 
 ## Prerequisites
 
 1. Ansible installed on your control machine  
-   ```bash
-   sudo apt update && sudo apt install ansible -y
-   ```
-
 2. Target server(s) accessible via SSH  
-
-3. Your SSH key available at:
-   ```bash
-   ~/.ssh/id_rsa.pub
-   ```
+3. Your SSH key available at: ~/.ssh/id_rsa.pub
 
 ---
 
