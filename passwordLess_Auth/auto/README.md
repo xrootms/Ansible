@@ -6,12 +6,14 @@ This playbook sets up a secure Ubuntu server with a new `User`, `SSH key-based a
 ---
 
 ## Features
+```
 - Creating a non-root user
 - Adding SSH keys for login
 - Giving the user sudo privileges
 - Installing basic tools (git, curl, vim, ufw, etc.)
 - Securing SSH (disable root password login)
 - Enabling a firewall
+```
 
 ---
 
@@ -36,12 +38,6 @@ project/
 
 ---
 
-## Variables
-
-- Modify `vars/default.yml` to customize the username or system packages.  
-
----
-
 ## Running this Playbook
 
 1. **Obtain the playbook**
@@ -63,12 +59,8 @@ project/
 
 ## Verification
 
-After the playbook runs:
-
 - Login as the new user: `ssh user@your_server_ip`
- 
 - Confirm sudo works without a password: `sudo ls /root`
-
 - Check UFW firewall rules: `sudo ufw status`
 
 ---
