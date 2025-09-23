@@ -56,11 +56,11 @@ project/
 
 After the playbook runs:
 
-- Login as the new user: ssh user@your_server_ip
+- Login as the new user: `ssh user@your_server_ip`
  
-- Confirm sudo works without a password: sudo ls /root
+- Confirm sudo works without a password: `sudo ls /root`
 
-- Check UFW firewall rules: sudo ufw status
+- Check UFW firewall rules: `sudo ufw status`
 
 ---
 ✅ Now your server is ready, secure, and manageable with Ansible.
