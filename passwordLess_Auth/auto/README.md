@@ -38,15 +38,7 @@ project/
 
 ## Variables (`vars/default.yml`)
 
-```yaml
-create_user: sammy
-copy_local_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
-sys_packages: [ 'curl', 'vim', 'git', 'ufw' ]
-```
-
-- **create_user** → Name of the new user to be created  
-- **copy_local_key** → Path to your local SSH public key  
-- **sys_packages** → List of essential packages to install  
+- Modify `vars/default.yml` to customize the username or system packages.  
 
 ---
 
@@ -69,26 +61,11 @@ sys_packages: [ 'curl', 'vim', 'git', 'ufw' ]
 
 After the playbook runs:
 
-- Login as the new user:
-  ```bash
-  ssh sammy@your_server_ip
-  ```
-- Confirm sudo works without a password:
-  ```bash
-  sudo ls /root
-  ```
-- Check UFW firewall rules:
-  ```bash
-  sudo ufw status
-  ```
+- Login as the new user: ssh user@your_server_ip
+ 
+- Confirm sudo works without a password: sudo ls /root
 
----
-
-## Notes
-
-- This setup **disables root password login** but allows root login with SSH keys if configured.  
-- Make sure you have your **SSH key added** before running the playbook.  
-- Modify `vars/default.yml` to customize the username or system packages.  
+- Check UFW firewall rules: sudo ufw status
 
 ---
 ✅ Now your server is ready, secure, and manageable with Ansible.
