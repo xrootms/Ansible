@@ -36,7 +36,7 @@ project/
 
 ---
 
-## Variables (`vars/default.yml`)
+## Variables
 
 - Modify `vars/default.yml` to customize the username or system packages.  
 
