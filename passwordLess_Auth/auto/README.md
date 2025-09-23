@@ -1,19 +1,17 @@
 # Ansible Playbook – Initial Server Setup
 
-“We’re preparing a new server with the minimum secure configuration before deploying applications on it.”
+“Preparing a new server with the minimum secure configuration before deploying applications on it.”
 This playbook sets up a secure Ubuntu server with a new `User`, `SSH key-based authentication`, `sudo Privileges`, `Essential packages`, and a `Firewall`.
 
 ---
 
 ## Features
-`
-`- Creating a non-root user`
-`- Adding SSH keys for login`
+- Creating a non-root user
+- Adding SSH keys for login
 - Giving the user sudo privileges
 - Installing basic tools (git, curl, vim, ufw, etc.)
 - Securing SSH (disable root password login)
 - Enabling a firewall`
-`
 
 ---
 
