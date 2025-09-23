@@ -1,7 +1,7 @@
 # Ansible Playbook – Initial Server Setup
 
 “We’re preparing a new server with the minimum secure configuration before deploying applications on it.”
-This playbook sets up a secure Ubuntu server with a new User, SSH key-based authentication, sudo Privileges, Essential packages, and a Firewall.
+This playbook sets up a secure Ubuntu server with a new `User`, `SSH key-based authentication`, `sudo Privileges`, `Essential packages`, and a `Firewall`.
 
 ---
 
@@ -45,16 +45,11 @@ project/
 ## Usage
 
 1. Update your `inventory` file with server details:
-   ```ini
-   [all]
-   your_server_ip ansible_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
-   ```
 
 2. Run the playbook:
    ```bash
    ansible-playbook -i inventory playbook.yml
    ```
-
 ---
 
 ## Verification
